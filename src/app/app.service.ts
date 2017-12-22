@@ -25,17 +25,17 @@ getStudentData() {
             .catch(this.handleError);
     }
    saveStudentData(savestudent:any) {
-        return this.http.put('http://localhost:8090/rest/addStudent',{"studentName":savestudent.studentName,"firstName":savestudent.firstName,"lastName":savestudent.lastName,"email":savestudent.email,"courses":savestudent.courses})
+        return this.http.put('http://localhost:8090/rest/addStudent',JSON.stringify({"studentName":savestudent.studentName,"firstName":savestudent.firstName,"lastName":savestudent.lastName,"email":savestudent.email,"courses":[savestudent.courses]}))
             .map(this.extractData)
             .catch(this.handleError);
     }
       updateStudentData(savestudent:any) {
-        return this.http.post('http://localhost:8090/rest/updateStudent',{"studentName":savestudent.studentName,"firstName":savestudent.firstName,"lastName":savestudent.lastName,"email":savestudent.email,"courses":savestudent.courses})
+        return this.http.post('http://localhost:8090/rest/updateStudent',JSON.stringify({"studentId":savestudent.id ,"studentName":savestudent.studentName,"firstName":savestudent.firstName,"lastName":savestudent.lastName,"email":savestudent.email,"courses":[savestudent.courses]}))
             .map(this.extractData)
             .catch(this.handleError);
     }
       deleteStudentData(id:any) {
-        return this.http.delete('http://localhost:8090/rest/deleteStudent',{ "studentId":id })
+        return this.http.post('http://localhost:8090/rest/deleteStudent',{"studentId":id })
             .map(this.extractData)
             .catch(this.handleError);
     }

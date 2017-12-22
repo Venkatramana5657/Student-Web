@@ -31,28 +31,29 @@ ngOnInit() {
   }
 
   getStudentList(){
-this.res={"results":[{"studentId":"14","firstName":"123","lastName":"1223","courses":["JAVA","UI"],"studentName":"AA","email":"1223"},{"studentId":"15","firstName":"dsfs","lastName":"werwer","courses":["JAVA","PHP"],"studentName":"12343","email":"123"}]}
+/* this.res={"results":[{"studentId":"14","firstName":"123","lastName":"1223","courses":["JAVA","UI"],"studentName":"AA","email":"1223"},{"studentId":"15","firstName":"dsfs","lastName":"werwer","courses":["JAVA","PHP"],"studentName":"12343","email":"123"}]}
   this.filteredData = [this.res];
-this.data = [this.res];
-   //this.appservice.getStudentData().subscribe((response:any) => {
-      //this.filteredData = [this.res];
-//    }, (err:any) => { 
-     //   console.log(err);
-   // }
+this.data = [this.res]; */
+   this.appservice.getStudentData().subscribe((response:any) => {
+      this.filteredData = [response];
+	  this.data = [response];
+    }, (err:any) => { 
+        console.log(err);
+    }
 
 
   }
   getCourseList(){
-  this.cres={"courses":[{"courseName":"JAVA","courseId":"1"},{"courseName":"ORACLE","courseId":"2"},{"courseName":"UI","courseId":"3"},{"courseName":"PHP","courseId":"4"}]}
-  this.coursedata = [this.cres];
+  /* this.cres={"courses":[{"courseName":"JAVA","courseId":"1"},{"courseName":"ORACLE","courseId":"2"},{"courseName":"UI","courseId":"3"},{"courseName":"PHP","courseId":"4"}]}
+  this.coursedata = [this.cres]; */
 
 
-     //this.appservice.getCourseData().subscribe((response:any) => {
-     //this.cres=response;
-      //this.coursedata = [this.res];
-//    }, (err:any) => { 
-     //   console.log(err);
-   // }
+     this.appservice.getCourseData().subscribe((response:any) => {
+     this.cres=response;
+      this.coursedata = [response];
+    }, (err:any) => { 
+        console.log(err);
+    }
 
   }
 
@@ -77,10 +78,11 @@ updateStudent(){
   }
   deleteStudent(id){
     this.appservice.deleteStudentData(id).subscribe((response:any) => {
-      alert("successfully student is saved")
+      alert("successfully student is deleted")
     }, (err:any) => { 
         console.log(err);
     }
+	);
   }
 
   create(){
@@ -94,12 +96,13 @@ update(item){
 	this.model.firstName=item.firstName,
 	this.model.lastName=item.lastName,
 	this.model.email=item.email,
+	this.model.id=item.studentId,
 	this.model.courses=item.courses
 
  this.showstudent=true;
  this.displayupdate=true;
 
 
-
+}
   
 }
