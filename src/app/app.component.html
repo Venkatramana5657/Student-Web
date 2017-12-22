@@ -1,0 +1,95 @@
+  <div class="header well well-sm"><h1>Student </h1></div>
+
+<div class="col-md-6 col-md-offset-3">
+    <h3 style="float: left"><a (click)="create()" *ngIf="!showstudent">Create a Student</a></h3>
+     <form *ngIf="showstudent" name="form" (ngSubmit)="f.form.valid && saveStudent()" #f="ngForm" novalidate>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !studentName.valid }">
+            <label for="studentName">studentName</label>
+            <input type="text" class="form-control" name="studentName" [(ngModel)]="model.studentName" #studentName="ngModel" required />
+            <div *ngIf="f.submitted && !studentName.valid" class="help-block">studentName is required</div>
+        </div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !studentName.valid }">
+            <label for="firstName">firstName</label>
+            <input type="text" class="form-control" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" required />
+            <div *ngIf="f.submitted && !firstName.valid" class="help-block">firstName is required</div>
+        </div>
+          <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !firstName.valid }">
+            <label for="lastName">lastName</label>
+            <input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required />
+            <div *ngIf="f.submitted && !lastName.valid" class="help-block">lastName is required</div>
+        </div>
+          <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !lastName.valid }">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required />
+            <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>
+        </div>
+         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+            <label for="course">Courses</label>
+            <select class="form-control" name="course" [(ngModel)]="model.courses" #course="ngModel" required>
+              <option  *ngFor="let item of coursedata[0].courses" value="{{item.courseId}}">{{item.courseName}}</option>
+            }
+            }
+           
+            </select>
+            <div *ngIf="f.submitted && !email.valid" class="help-block">Course is required</div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" *ngIf="!displayupdate">Save</button>
+      <button type="button" *ngIf="displayupdate" class="btn btn-default" (click)="updateStudent()">Update</button>
+            <button type="button" class="btn btn-default" (click)="back()">Cancel</button>
+        </div>
+    </form> 
+
+
+    <table class="table table-striped table-border" [mfData]="filteredData" #mf="mfDataTable" [mfRowsOnPage]="5" *ngIf="!showstudent">
+    <thead>
+    <tr>
+    <th>
+            <mfDefaultSorter by="name">SNO</mfDefaultSorter>
+        </th>
+        <th style="width: 20%">
+            <mfDefaultSorter by="name">Student Id</mfDefaultSorter>
+        </th>
+        <th style="width: 20%">
+            <mfDefaultSorter by="email">Student Name</mfDefaultSorter>
+        </th>
+
+        
+        <th style="width: 20%">
+            <mfDefaultSorter by="city">Email Id</mfDefaultSorter>
+        </th>
+        <th style="width: 20%">
+            <mfDefaultSorter by="email">Course </mfDefaultSorter>
+        </th>
+
+        
+    </tr>
+
+    </thead>
+    <tbody *ngFor="let item of mf.data[0].results;let i = index;">
+    <tr>
+        <td>{{i+1}}</td>
+        <td>{{item.studentId}}</td>
+        <td>{{item.studentName}}</td>
+<td>{{item.email}}</td>
+<td>{{item.courses}}</td>
+<td><span class="glyphicon glyphicon-pencil" (click)="update(item)"></span><span class="glyphicon glyphicon-remove" (click)="deleteStudent(item.studentId)"></span></td>
+    </tr>
+
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="4">
+            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+        </td>
+    </tr>
+    </tfoot>
+</table>
+
+
+
+
+
+</div>
+
+  <div class="footer well well-sm"><footer>&copy; 2017 Some copyright message</footer></div>
